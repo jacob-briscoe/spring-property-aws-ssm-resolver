@@ -5,30 +5,26 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>1.5.8.RELEASE</version>
-        <relativePath/>
+        <version>2.1.4.RELEASE</version>
+        <relativePath/> <!-- lookup parent from repository -->
     </parent>
 
-    <groupId>com.nitorcreations</groupId>
+    <groupId>open.spring.aws</groupId>
     <artifactId>spring-property-aws-ssm-resolver</artifactId>
-    <version>1.0.0</version>
+    <version>2.0.0</version>
 
     <packaging>jar</packaging>
 
     <name>Spring Property AWS SSM Resolver</name>
     <description>Spring add-on that fetches Spring properties with a certain prefix from the AWS SSM Parameter Store</description>
-    <url>https://github.com/NitorCreations/spring-property-aws-ssm-resolver.git</url>
+    <url>https://github.com/jacob-briscoe/spring-property-aws-ssm-resolver.git</url>
     <inceptionYear>2017</inceptionYear>
 
     <properties>
         <java.version>1.8</java.version>
+        <aws.sdk.version>1.11.517</aws.sdk.version>
         <maven.site.skip>true</maven.site.skip>
     </properties>
-
-    <organization>
-        <name>Nitor</name>
-        <url>http://www.nitor.com</url>
-    </organization>
 
     <licenses>
         <license>
@@ -44,111 +40,44 @@
             <organization>Nitor</organization>
             <organizationUrl>http://www.nitor.com</organizationUrl>
         </developer>
+        <developer>
+            <name>Jacob Briscoe</name>
+            <organizationUrl>https://github.com/jacob-briscoe</organizationUrl>
+        </developer>
     </developers>
-
-    <scm>
-        <connection>scm:git:https://github.com/NitorCreations/spring-property-aws-ssm-resolver.git</connection>
-        <developerConnection>scm:git:https://github.com/NitorCreations/spring-property-aws-ssm-resolver.git</developerConnection>
-        <url>https://github.com/NitorCreations/spring-property-aws-ssm-resolver.git</url>
-        <tag>HEAD</tag>
-    </scm>
-
-    <distributionManagement>
-        <snapshotRepository>
-            <id>ossrh</id>
-            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
-        </snapshotRepository>
-    </distributionManagement>
 
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter</artifactId>
-            <version>1.5.8.RELEASE</version>
         </dependency>
         <dependency>
             <groupId>com.amazonaws</groupId>
             <artifactId>aws-java-sdk-ssm</artifactId>
-            <version>1.11.238</version>
+            <version>${aws.sdk.version}</version>
         </dependency>
     </dependencies>
 
     <build>
+        <finalName>spring-property-aws-ssm-resolver</finalName>
         <plugins>
             <plugin>
-                <groupId>org.sonatype.plugins</groupId>
-                <artifactId>nexus-staging-maven-plugin</artifactId>
-                <version>1.6.6</version>
-                <extensions>true</extensions>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
                 <configuration>
-                    <serverId>ossrh</serverId>
-                    <nexusUrl>https://oss.sonatype.org/</nexusUrl>
-                    <autoReleaseAfterClose>true</autoReleaseAfterClose>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
+                    <showDeprecation>true</showDeprecation>
                 </configuration>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-gpg-plugin</artifactId>
-                <version>1.6</version>
-                <executions>
-                    <execution>
-                        <id>sign-artifacts</id>
-                        <phase>verify</phase>
-                        <goals>
-                            <goal>sign</goal>
-                        </goals>
-                    </execution>
-                </executions>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <configuration>
+                    <argLine>-Dfile.encoding=UTF-8</argLine>
+                </configuration>
             </plugin>
         </plugins>
     </build>
-
-    <profiles>
-        <profile>
-            <id>release</id>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-source-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <id>attach-sources</id>
-                                <goals>
-                                    <goal>jar-no-fork</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-javadoc-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <id>attach-javadocs</id>
-                                <goals>
-                                    <goal>jar</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-gpg-plugin</artifactId>
-                        <version>1.6</version>
-                        <executions>
-                            <execution>
-                                <id>sign-artifacts</id>
-                                <phase>verify</phase>
-                                <goals>
-                                    <goal>sign</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-    </profiles>
 
 </project>
