@@ -38,7 +38,7 @@ public class SpringPropertySSMParameterResolver implements EnvironmentPostProces
                 Map<String, Object> propertyOverrides = Arrays.stream(enumerablePropertySource.getPropertyNames())
                         .filter(p -> (enumerablePropertySource.getProperty(p) instanceof String))
                         .filter(p -> ((String) enumerablePropertySource.getProperty(p)).startsWith(PREFIX))
-                        .collect(Collectors.toMap(Function.identity(), p -> aws.resolveSsmParameter((String) enumerablePropertySource.getProperty(p), PREFIX)));
+                        .collect(Collectors.toMap(Function.identity(), p -> aws.resolveSsmParameter(environment.resolvePlaceholders((String) enumerablePropertySource.getProperty(p)), PREFIX)));
 
                 if (!propertyOverrides.isEmpty()) {
                     PropertySource<?> processedProperties = new MapPropertySource("override-"+ propertySource.getName(), propertyOverrides);
