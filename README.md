@@ -11,9 +11,9 @@
 ### Maven
 
     <dependency>
-        <groupId>com.nitorcreations</groupId>
+        <groupId>io.github.jb</groupId>
         <artifactId>spring-property-aws-ssm-resolver</artifactId>
-        <version>1.0.0</version>
+        <version>2.0.0</version>
     </dependency>
 
 ## Usage
@@ -28,6 +28,7 @@ Example ```application.yml```:
 
     my.regular.property: 'Foo'
     my.secret.property: '{ssmParameter}/myproject/myapp/mysecret'
+    my.secret.refProperty: '{ssmParameter}/myproject/myapp/${my.regular.property}/mysecret'
 
 During startup, the plugin would look for properties with this prefix and replace the value by looking for a property called ```/myproject/myapp/mysecret``` on AWS SSM.
 
