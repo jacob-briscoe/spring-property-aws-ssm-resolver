@@ -1,7 +1,7 @@
-package open.spring.env.aws;
+package io.github.jb.spring.env.aws;
 
-import open.spring.aws.AWSPropertySource;
-import open.spring.aws.SSM;
+import io.github.jb.aws.AWSPropertySource;
+import io.github.jb.aws.SSM;
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;

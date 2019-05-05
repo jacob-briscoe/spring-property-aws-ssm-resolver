@@ -1,4 +1,4 @@
-package open.spring.aws;
+package io.github.jb.aws;
 
 public interface AWSPropertySource {
 

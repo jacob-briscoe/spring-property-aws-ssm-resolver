@@ -1,4 +1,4 @@
-package open.spring.env.aws;
+package io.github.jb.spring.env.aws;
 
 import java.util.Arrays;
 import java.util.Map;
@@ -8,8 +8,8 @@ import java.util.function.Function;
 import static java.util.function.Function.identity;
 import java.util.function.Predicate;
 import static java.util.stream.Collectors.*;
-import open.spring.aws.AWSPropertySource;
-import open.spring.aws.SSM;
+import io.github.jb.aws.AWSPropertySource;
+import io.github.jb.aws.SSM;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.env.EnvironmentPostProcessor;
 import org.springframework.core.env.ConfigurableEnvironment;
