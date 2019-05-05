@@ -15,10 +15,10 @@
 
     <packaging>jar</packaging>
 
-    <name>Spring Property AWS SSM Resolver</name>
+    <name>${project.groupId}:${project.artifactId}</name>
     <description>Spring add-on that fetches Spring properties with a certain prefix from the AWS SSM Parameter Store</description>
     <url>https://github.com/jacob-briscoe/spring-property-aws-ssm-resolver.git</url>
-    <inceptionYear>2017</inceptionYear>
+    <inceptionYear>2019</inceptionYear>
 
     <properties>
         <maven.compiler.source>1.8</maven.compiler.source>
@@ -27,6 +27,12 @@
         <aws.sdk.version>1.11.517</aws.sdk.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
+
+    <scm>
+        <connection>scm:git:https://github.com/jacob-briscoe/spring-property-aws-ssm-resolver.git</connection>
+        <developerConnection>scm:git:https://github.com/jacob-briscoe/spring-property-aws-ssm-resolver.git</developerConnection>
+        <url>https://github.com/jacob-briscoe/spring-property-aws-ssm-resolver/tree/master</url>
+    </scm>
 
     <licenses>
         <license>
@@ -44,6 +50,7 @@
         </developer>
         <developer>
             <name>Jacob Briscoe</name>
+            <email>jabriscoe@gmail.com</email>
             <organizationUrl>https://github.com/jacob-briscoe</organizationUrl>
         </developer>
     </developers>
@@ -96,7 +103,80 @@
                     <argLine>-Dfile.encoding=UTF-8</argLine>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>org.sonatype.plugins</groupId>
+                <artifactId>nexus-staging-maven-plugin</artifactId>
+                <version>1.6.8</version>
+                <extensions>true</extensions>
+                <configuration>
+                    <serverId>ossrh</serverId>
+                    <nexusUrl>https://oss.sonatype.org/</nexusUrl>
+                    <autoReleaseAfterClose>true</autoReleaseAfterClose>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-gpg-plugin</artifactId>
+                <version>1.6</version>
+                <executions>
+                    <execution>
+                        <id>sign-artifacts</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>sign</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>            
         </plugins>
     </build>
+
+    <profiles>
+        <profile>
+            <id>release</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-source-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>attach-sources</id>
+                                <goals>
+                                    <goal>jar-no-fork</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-javadoc-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>attach-javadocs</id>
+                                <goals>
+                                    <goal>jar</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-gpg-plugin</artifactId>
+                        <version>1.6</version>
+                        <executions>
+                            <execution>
+                                <id>sign-artifacts</id>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>sign</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 
 </project>
