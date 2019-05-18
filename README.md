@@ -11,7 +11,7 @@
 ### Maven
 
     <dependency>
-        <groupId>io.github.jb</groupId>
+        <groupId>io.github.jacob-briscoe</groupId>
         <artifactId>spring-property-aws-ssm-resolver</artifactId>
         <version>2.0.0</version>
     </dependency>
