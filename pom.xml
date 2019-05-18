@@ -9,7 +9,7 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
 
-    <groupId>io.github.jb</groupId>
+    <groupId>io.github.jacob-briscoe</groupId>
     <artifactId>spring-property-aws-ssm-resolver</artifactId>
     <version>2.0.0</version>
 
@@ -33,6 +33,17 @@
         <developerConnection>scm:git:https://github.com/jacob-briscoe/spring-property-aws-ssm-resolver.git</developerConnection>
         <url>https://github.com/jacob-briscoe/spring-property-aws-ssm-resolver/tree/master</url>
     </scm>
+
+    <distributionManagement>
+      <snapshotRepository>
+        <id>ossrh</id>
+        <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+      </snapshotRepository>
+      <repository>
+        <id>ossrh</id>
+        <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+      </repository>
+    </distributionManagement>
 
     <licenses>
         <license>
@@ -114,20 +125,6 @@
                     <autoReleaseAfterClose>true</autoReleaseAfterClose>
                 </configuration>
             </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-gpg-plugin</artifactId>
-                <version>1.6</version>
-                <executions>
-                    <execution>
-                        <id>sign-artifacts</id>
-                        <phase>verify</phase>
-                        <goals>
-                            <goal>sign</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>            
         </plugins>
     </build>
 
@@ -171,7 +168,11 @@
                                 <goals>
                                     <goal>sign</goal>
                                 </goals>
-                            </execution>
+                                <configuration>
+                                  <keyname>${gpg.keyname}</keyname>
+                                  <passphraseServerId>${gpg.keyname}</passphraseServerId>
+                                </configuration>
+                              </execution>
                         </executions>
                     </plugin>
                 </plugins>
